@@ -1,0 +1,26 @@
+<entities>
+	<item>
+		<type>tree</type>
+		<path>tou.png</path>
+	</item>
+	<item>
+		<type>dog</type>
+		<path>tou_1.png</path>
+	</item>
+	<item>
+		<type>cat</type>
+		<path>tou_2.png</path>
+	</item>
+	<item>
+		<type>bear</type>
+		<path>tou_3.png</path>
+	</item>
+	<item>
+		<type>boss1</type>
+		<path>tou_4.png</path>
+	</item>
+	<item>
+		<type>boss2</type>
+		<path>tou_5.png</path>
+	</item>
+</entities>
