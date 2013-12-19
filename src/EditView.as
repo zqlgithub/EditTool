@@ -109,6 +109,7 @@ package
 				mat.y = e.localY;
 				mat.addEventListener(MouseEvent.CLICK, onMatClick);
 				map.addChild(mat);
+				
 			}
 		}
 		private function onMouseDown(e:MouseEvent):void{

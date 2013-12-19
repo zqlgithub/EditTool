@@ -17,6 +17,7 @@ package
 		public var currSelectMat:Entity = null;
 		
 		public var levelData:XML = null;
+		private var data:Object = null;
 		
 		private static var instance:DataManager = new DataManager;
 		public static function getInstance():DataManager
@@ -31,34 +32,75 @@ package
 		
 		public function init():void
 		{
-			var file:File = File.applicationStorageDirectory.resolvePath("data.xml");
+			var file:File = File.applicationStorageDirectory.resolvePath("data.json");
 			if(file.exists)
 			{
 				var stream:FileStream = new FileStream;
 				stream.open(file, FileMode.READ);
-				levelData = new XML(stream.readUTFBytes(stream.bytesAvailable));
+				parseToData(JSON.parse(stream.readUTFBytes(stream.bytesAvailable)));
 				stream.close();
+				
 			}
 			else 
-				levelData = <Root label="关卡"></Root>;
+			{
+				data = new Object;
+				data.level = new Object;
+			}
+			updateLevelData();
 			
 			var loader:URLLoader = new URLLoader;
 			loader.addEventListener(Event.COMPLETE, onLoadMatsData);
 			loader.load(new URLRequest("Resource/enemyData.xml"));
 		}
+		private function parseToData(source:Object):void
+		{
+			//for(var i in data)
+				
+		}
+		private function parseDataToObject():Object
+		{
+			/*var obj:Object = new Object;
+			for(var i in data)
+			{
+				obj[i] = new Object;
+				var arr:Array = Array(data[i]);
+				for(var j:int = 0; j < arr.length; j++)
+				{
+					obj[i][j]
+				}
+					
+			}*/
+			return null;
+		}
+		
+		private function updateLevelData():void
+		{
+			levelData = <Root></Root>;
+			for(var i in data)
+			{
+				levelData.appendChild(new XML("<level label='"+i+"'></level>"));
+			}
+		}
 		
 		public function addNewLevel(name:String):void
 		{
-			var currNum:int = levelData.level.length();
-			levelData.appendChild(new XML("<level label='关卡"+currNum+"'></level>"));
+			if(data.hasOwnProperty(name))
+				return;
+			data[name] = new Object;
+			updateLevelData();
+		}
+		
+		public function addMatsOnLevel(level:String, matData:Object):void
+		{
+			//data[level] = matData;
 		}
 		
 		public function save():void
 		{
-			var file:File = File.applicationStorageDirectory.resolvePath("data.xml");
+			var file:File = File.applicationStorageDirectory.resolvePath("data.json");
 			var stream:FileStream = new FileStream;
 			stream.open(file, FileMode.WRITE);
-			stream.writeUTFBytes(levelData.toString());
+			stream.writeUTFBytes(JSON.stringify(data));
 			stream.close();
 			
 			Alert.show("保存成功！");

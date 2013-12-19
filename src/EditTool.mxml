@@ -39,7 +39,8 @@
 			}
 			
 			private function onAddSubItem(e:ContextMenuEvent):void{
-				DataManager.getInstance().addNewLevel("");
+				var name:String = "level"+DataManager.getInstance().levelData.level.length();
+				DataManager.getInstance().addNewLevel(name);
 			}
 			
 			private function onMatsViewResize():void
@@ -68,7 +69,7 @@
 		<s:Button label="保存" width="80" height="30" click="save(event)"/>
 		<s:Panel width="100%" height="100%" title="关卡">
 			<mx:Tree id="levelTree" enabled="true" labelField="@label" 
-					 width="100%" height="100%" showRoot="true" itemClick="onItemClick(event)">
+					 width="100%" height="100%" showRoot="false" itemClick="onItemClick(event)">
 			</mx:Tree>
 		</s:Panel>
 	</s:VGroup>
